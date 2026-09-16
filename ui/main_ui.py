@@ -23,14 +23,14 @@ class VentanaPrincipal:
         
         # Menú Archivo
         menu_archivo = tk.Menu(self.barra_menu, tearoff=0)
-        menu_archivo.add_command(label="Nuevo (Simulado)", command=lambda: messagebox.showinfo("Info", "Función simulada"))
+        menu_archivo.add_command(label="Nuevo", command=lambda: messagebox.showinfo("Info", "Funciom"))
         menu_archivo.add_command(label="Salir", command=self.root.quit)
         self.barra_menu.add_cascade(label="Archivo", menu=menu_archivo)
         
         # Menú Ver (Opciones simuladas de Zoom)
         menu_ver = tk.Menu(self.barra_menu, tearoff=0)
-        menu_ver.add_command(label="Zoom In (+)", command=lambda: messagebox.showinfo("Zoom", "Zoom ampliado (Simulado)"))
-        menu_ver.add_command(label="Zoom Out (-)", command=lambda: messagebox.showinfo("Zoom", "Zoom reducido (Simulado)"))
+        menu_ver.add_command(label="Zoom In (+)", command=lambda: messagebox.showinfo("Zoom", "Zoom ampliado"))
+        menu_ver.add_command(label="Zoom Out (-)", command=lambda: messagebox.showinfo("Zoom", "Zoom reducido"))
         self.barra_menu.add_cascade(label="Ver", menu=menu_ver)
         
         # Menú Configuración funcional
@@ -59,19 +59,17 @@ class VentanaPrincipal:
         
         self.btn_publicar = tk.Button(self.frame_nuevo, text="Publicar", command=self.publicar_comentario)
         self.btn_publicar.pack(side=tk.LEFT, padx=2)
-        
-        # Botón de Reacción / Like (Aplica al último comentario o simula interacción)
-        self.btn_like = tk.Button(self.frame_nuevo, text="❤️ Me gusta", command=self.dar_like)
+        self.btn_like = tk.Button(self.frame_nuevo, text="Me gusta", command=self.dar_like)
         self.btn_like.pack(side=tk.LEFT, padx=2)
         
         # Botones extra simulados que no hacen gran cosa
         self.frame_extras = tk.Frame(self.frame_feed)
         self.frame_extras.pack(fill=tk.X, pady=5)
         
-        self.btn_compartir = tk.Button(self.frame_extras, text="Compartir (Simulado)", command=lambda: messagebox.showinfo("Simulado", "Publicación compartida con éxito"))
+        self.btn_compartir = tk.Button(self.frame_extras, text="Compartir", command=lambda: messagebox.showinfo("Compartido", "Publicación compartida con éxito"))
         self.btn_compartir.pack(side=tk.LEFT, padx=5)
         
-        self.btn_reportar = tk.Button(self.frame_extras, text="Reportar (Simulado)", command=lambda: messagebox.showwarning("Simulado", "Reporte enviado al sistema"))
+        self.btn_reportar = tk.Button(self.frame_extras, text="Reportar", command=lambda: messagebox.showwarning("Reportado", "Reporte enviado al sistema"))
         self.btn_reportar.pack(side=tk.LEFT, padx=5)
 
         self.actualizar_vista()
