@@ -1,7 +1,7 @@
 import tkinter as tk
 import pathlib
 import json
-
+from ui.config_ui import VentanaSettings
 
 class VentanaPrincipal:
     def __init__(self, root, gestor_config):
@@ -13,7 +13,6 @@ class VentanaPrincipal:
         self.imagenes_en_memoria = [] 
         self.archivo_comentarios = pathlib.Path("comentarios.json")
         
-        # Cargar los comentarios guardados al iniciar
         self.cargar_comentarios()
         
         self.barra_menu = tk.Menu(self.root)
@@ -55,21 +54,22 @@ class VentanaPrincipal:
                 with open(self.archivo_comentarios, "r", encoding="utf-8") as f:
                     self.comentarios = json.load(f)
             except Exception as e:
-                self.comentarios = [] # Si hay un error al cargar, inicializamos como lista vacía
+                print("Error cargando comentarios:", e)
+                self.comentarios = []
 
     def guardar_comentarios(self):
         try:
             with open(self.archivo_comentarios, "w", encoding="utf-8") as f:
                 json.dump(self.comentarios, f, indent=4, ensure_ascii=False)
         except Exception as e:
-            print("Hubo un error al guardar el comentario:", e)
+            print("Error guardando comentarios:", e)
 
     def publicar_comentario(self):
         texto = self.entrada_comentario.get()
         if texto != "":
             usuario = self.gestor.config["nombre_usuario"]
             if usuario == "":
-                usuario = "Sin nombre"
+                usuario = "Anónimo"
                 
             ruta_foto = self.gestor.config["foto_perfil"]
             
@@ -80,9 +80,9 @@ class VentanaPrincipal:
             }
             
             self.comentarios.append(diccionario_comentario)
-            self.guardar_comentarios() # Guardamos los comentarios despues de añadir uno nuevo
-            self.entrada_comentario.delete(0, tk.END) 
-            self.refrescar_caja_comentarios() 
+            self.guardar_comentarios() 
+            self.entrada_comentario.delete(0, tk.END)
+            self.refrescar_caja_comentarios()
 
     def refrescar_caja_comentarios(self):
         self.caja_comentarios.config(state=tk.NORMAL)
@@ -154,3 +154,5 @@ class VentanaPrincipal:
             
         self.barra_menu.config(fg=c["color_letra"])
 
+    def abrir_settings(self):
+        VentanaSettings(self.root, self.gestor, self.actualizar_vista)
